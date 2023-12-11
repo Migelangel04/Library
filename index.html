@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library App</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script src="./script.js" defer></script>
+</head>
+<body>
+
+    <div class="page" id="page">
+        <div class="navbar" id="navbar">
+            <h2 class="header" id="header">My Library</h2>
+            <form action="" class="addBook" id="addBook">
+                <input type="text" name="bookTitle" id="bookTitle" placeholder="Enter the title of the Book.." required>
+                <input type="text" name="bookAuthor" id="bookAuthor" placeholder="Enter the author of the book..." required>
+                <input type="number" name="datePublished" id="datePublished" placeholder="Enter the year of publication(Optional).">
+                <input type="number" name="bookPages" id="bookPages" placeholder="Enter the amount of pages of the book..." required>
+                <input type="checkbox" name="bookRead" id="bookRead">
+                <button class="enterBook" id="enterBook" type="submit">ENTER</button>
+            </form>
+        </div>
+        <main class="content" id="content">
+            <div class="pageDetails" id="pageDetails">
+                <p class="booksRead" id="booksRead">Books Read: 0</p>
+                <p class="booksUnread" id="booksUnread">Books Unread: 0</p>
+                <p class="booksInCollection" id="booksInCollection">Total Books: 0</p>
+                <button class="removeBook" id="removeBook">Remove Book</button>
+                <button class="removeAll" id="removeAll">Remove All Books</button>
+            </div>
+            <div class="userBookList" id="userBookList">
+                <div class="title section">
+                    <p>Title</p>
+                </div>
+                <div class="author section">
+                    <p>Author</p>
+                </div>
+                <div class="published section">
+                    <p>Year Published</p>
+                </div>
+                <div class="pages section">
+                    <p>Pages</p>
+                </div>
+                <div class="read section">
+                    <p>Have Read</p>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+</body>
+</html>
