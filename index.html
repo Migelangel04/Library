@@ -11,25 +11,16 @@
 
     <div class="page" id="page">
 
-        <section class="modal hidden" id="modal">
-            <div class="overlay">
-                <div class="removeBookOverlay hidden" id="removeBookOverlay">
-
-                </div>
-                <div class="removeAllOverlay hidden" id="removeAllOverlay">
-
-                </div>
-            </div>
-        </section>
-
         <div class="navbar" id="navbar">
-            <h2 class="header" id="header">My Library</h2>
+            <h1 class="header" id="header">My Library</h1>
             <form action="" class="addBook" id="addBook" name="addBook">
                 <input type="text" name="bookTitle" id="bookTitle" placeholder="Enter the title of the Book.." required>
                 <input type="text" name="bookAuthor" id="bookAuthor" placeholder="Enter the author of the book..." required>
-                <input type="number" name="datePublished" id="datePublished" placeholder="Enter the year of publication(Optional).">
                 <input type="number" name="bookPages" id="bookPages" placeholder="Enter the amount of pages of the book..." required>
-                <input type="checkbox" name="bookRead" id="bookRead">
+                <div class="readDiv">
+                    <input type="checkbox" name="bookRead" id="bookRead">
+                    <label for="bookRead"> Have Read?</label>
+                </div>
                 <button class="enterBook" id="enterBook" type="submit">ENTER</button>
             </form>
         </div>
@@ -38,25 +29,9 @@
                 <p class="booksRead" id="booksRead">Books Read: 0</p>
                 <p class="booksUnread" id="booksUnread">Books Unread: 0</p>
                 <p class="booksInCollection" id="booksInCollection">Total Books: 0</p>
-                <button class="removeBook" id="removeBook">Remove Book</button>
-                <button class="removeAll" id="removeAll">Remove All Books</button>
             </div>
-            <div class="userBookList" id="userBookList">
-                <div class="title section">
-                    <p>Title</p>
-                </div>
-                <div class="author section">
-                    <p>Author</p>
-                </div>
-                <div class="published section">
-                    <p>Year Published</p>
-                </div>
-                <div class="pages section">
-                    <p>Pages</p>
-                </div>
-                <div class="read section">
-                    <p>Have Read</p>
-                </div>
+            <div class="userBookList">
+                
             </div>
         </main>
     </div>

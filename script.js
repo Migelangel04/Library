@@ -1,10 +1,10 @@
-function Book(bookTitle, bookAuthor, bookPublishDate, bookPages, bookRead)
+function Book(bookTitle, bookAuthor, bookPages, bookRead, id)
 {
     this.bookTitle = bookTitle;
     this.bookAuthor = bookAuthor;
-    this.bookPublishDate = bookPublishDate;
     this.bookPages = bookPages;
     this.bookRead = bookRead;
+    this.id = id;
 }
 
 let bookEntry = document.getElementById('addBook');
@@ -13,14 +13,7 @@ let booksRead = document.getElementById('booksRead');
 let booksUnread = document.getElementById('booksUnread');
 let booksInCollection = document.getElementById('booksInCollection');
 
-let removeBook = document.getElementById("removeBook");
-let removeAll = document.getElementById("removeAll");
-
-let listTitle = document.querySelector('.title');
-let listAuthor = document.querySelector('.author');
-let listPublished = document.querySelector('.published');
-let listPages = document.querySelector('.pages');
-let listRead = document.querySelector('.read');
+let userBookList = document.querySelector(".userBookList");
 
 let bookReadCounter = 0;
 let bookUnreadCounter = 0;
@@ -30,7 +23,6 @@ let bookList = [];
 bookEntry.addEventListener("submit", (e) =>{
     let bookTitle = document.getElementById('bookTitle').value;
     let bookAuthor = document.getElementById('bookAuthor').value;
-    let bookDatePublished = document.getElementById('datePublished').value;
     let bookPages = document.getElementById('bookPages').value;
     let bookRead = document.getElementById('bookRead').checked;
 
@@ -47,10 +39,9 @@ bookEntry.addEventListener("submit", (e) =>{
     if (bookNotInCollection)
     {
         let newBookEntry = new Book(bookTitle, 
-            bookAuthor, 
-            bookDatePublished, 
+            bookAuthor,  
             bookPages, 
-            bookRead);
+            bookRead, bookList.length);
 
         if (bookRead === true)
         {
@@ -61,53 +52,126 @@ bookEntry.addEventListener("submit", (e) =>{
             bookUnreadCounter++;
             totalBooksSum++;
         }
-    
         bookList.push(newBookEntry);
-        addToBookCounter();
-        addBookToList();
+        addBookToList(newBookEntry);
+        updateBookCounter();
     }
 
     document.addBook.reset();
     e.preventDefault();
+});
 
-    
-} );
+userBookList.addEventListener("click", (e) => {
+    if (e.target.matches('.removeBookButton')) {
+        
+        let currentIndex = e.target.parentNode.id;
+        let currentBook = bookList[currentIndex];
+        console.log(currentBook);
+        userBookList.textContent = '';
+        
+        // Update Book Counter
+        if (currentBook.bookRead)
+        {
+            bookReadCounter--;
+            totalBooksSum--;
+        }
+        else {
+            bookUnreadCounter--;
+            totalBooksSum--;
+        }
+        updateBookCounter();
 
-removeBook.addEventListener("click", () => {
-    
-})
+        let tempBookList = [];
+        bookList.splice(currentIndex, 1);
 
-function addToBookCounter()
+        for (let i = 0; i < bookList.length; i++)
+        {
+            let currentTempBook = bookList[i];
+            currentTempBook.id = i;
+            addBookToList(currentTempBook);
+            tempBookList.push(currentTempBook);
+        }
+        bookList = tempBookList;
+    }
+    else if (e.target.matches('.haveReadButton'))
+    {
+        let currentBook = bookList[e.target.parentNode.id];
+        
+        if (currentBook.bookRead)
+        {
+            currentBook.bookRead = false;
+            e.target.classList.remove("haveReadColor");
+            e.target.classList.add("haveNotReadColor");
+            e.target.textContent = "Have Not Read :("
+            bookReadCounter--;
+            bookUnreadCounter++;
+        }
+        else 
+        {
+            currentBook.bookRead = true;
+            e.target.classList.add("haveReadColor");
+            e.target.classList.remove("haveNotReadColor");
+            e.target.textContent = "Have Read :)"
+            bookReadCounter++;
+            bookUnreadCounter--;
+        }
+        updateBookCounter();
+    }
+});
+
+function addBookToList(newBookEntry)
+{
+
+    let itemToAdd = document.createElement('div');
+    itemToAdd.classList.add("item");
+    itemToAdd.setAttribute('id', newBookEntry.id);
+
+    let itemHeader = document.createElement('h3');
+    itemHeader.textContent = newBookEntry.bookTitle;
+    itemToAdd.appendChild(itemHeader);
+
+    let itemAuthor = document.createElement('p');
+    let itemAuthorStrong = document.createElement('strong');
+    itemAuthorStrong.textContent = "Author: ";
+    itemAuthor.appendChild(itemAuthorStrong);
+    let authorText = document.createTextNode(newBookEntry.bookAuthor);
+    itemAuthor.appendChild(authorText);
+    itemToAdd.appendChild(itemAuthor);
+
+    let itemPage = document.createElement('p');
+    let itemPageStrong = document.createElement('strong');
+    itemPageStrong.textContent = "Pages: ";
+    itemPage.appendChild(itemPageStrong);
+    let pageText = document.createTextNode(newBookEntry.bookPages);
+    itemPage.appendChild(pageText);
+    itemToAdd.appendChild(itemPage);
+
+    let itemReadButton = document.createElement('button');
+    itemReadButton.classList.add("haveReadButton");
+    if (newBookEntry.bookRead)
+    {
+        itemReadButton.textContent = "Have Read :)";
+        itemReadButton.classList.add("haveReadColor")
+    }
+    else 
+    {
+        itemReadButton.textContent = "Have Not Read :("; 
+        itemReadButton.classList.add("haveNotReadColor");
+    }
+    itemToAdd.appendChild(itemReadButton);
+
+    let itemRemoveBookButton = document.createElement('button');
+    itemRemoveBookButton.classList.add("removeBookButton");
+    itemRemoveBookButton.textContent = "Remove";
+    itemToAdd.appendChild(itemRemoveBookButton);
+
+    userBookList.appendChild(itemToAdd);
+
+}
+
+function updateBookCounter()
 {
     booksRead.textContent = "Books Read: " + bookReadCounter;
     booksUnread.textContent = "Books Unread: " + bookUnreadCounter;
     booksInCollection.textContent = "Total Books: " + totalBooksSum;
-}
-
-function addBookToList()
-{
-    let currentBook = bookList[bookList.length - 1];
-
-    let title = document.createElement('p');
-    let author = document.createElement('p');
-    let published = document.createElement('p');
-    let pages = document.createElement('p');
-    let haveRead = document.createElement('p');
-
-    if (currentBook.bookPublishDate === "")
-    {
-        currentBook.bookPublishDate = "N/A";
-    }
-
-    title.textContent = currentBook.bookTitle;
-    listTitle.appendChild(title);
-    author.textContent = currentBook.bookAuthor;
-    listAuthor.appendChild(author);
-    published.textContent = currentBook.bookPublishDate;
-    listPublished.appendChild(published);
-    pages.textContent = currentBook.bookPages;
-    listPages.appendChild(pages);
-    haveRead.textContent = currentBook.bookRead;
-    listRead.appendChild(haveRead);
-
 }
