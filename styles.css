@@ -45,6 +45,11 @@ button
     color: var(--formTextColor);
 }
 
+.header 
+{
+    font-size: 48px;
+}
+
 .addBook
 {
     display: flex;
@@ -54,6 +59,38 @@ button
     justify-content: center;
 }
 
+.addBook input[type=text],
+.addBook input[type=number]
+{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border-radius: 12%;
+    border: 2px solid #040d12;
+}
+
+.readDiv
+{
+    font-size: 22px;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.readDiv input[type=checkbox]
+{
+    transform: scale(1.5);
+    cursor: pointer;
+}
+
+.enterBook
+{
+    padding: 4px 20px;
+    font-size: 18px;
+    border: 2px solid #040d12;
+    border-radius: 12%;
+}
 /* ---------------------- */
 
 /* Main Page Content */
@@ -75,7 +112,10 @@ button
     padding: 20px;
     background-color: var(--pageDetailsBackgroundColor);
     color: var(--pageDetailsTextColor);
+    font-size: 22px;
 }
+
+
 
 /* ----------------------- */
 
@@ -125,6 +165,12 @@ button
 .haveNotReadColor
 {
     background-color: violet;
+}
+
+.item button
+{
+    border-radius: 16%;
+    border: 2px solid #040d12;
 }
 
 
