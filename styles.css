@@ -19,6 +19,7 @@
     --pageDetailsTextColor: #040d12;
     --userBookListBackgroundColor: #040d12;
     --userBookListItem: #f2e8c6;
+    background-color: var(--formBackgroundColor);
 }
 
 button
